@@ -16,7 +16,6 @@ export class AuthorityService implements IAuthorityService {
 
 
   async login(data:{name:string,password:string}) {
-    console.log("login server",data);
     const authority = await this.repository.findOne(data.name);
     if (!authority) {
       return { success: false, message: "Access Denied" };
@@ -104,6 +103,16 @@ async getSchedules(data:{from:string,to:string}) {
     if (error instanceof Error) {
       return {success:false }
   }
+  throw error;
+  }
+}
+
+async getAvailableSchedules() {
+  try{
+      const schedules = await this.repository.getAvailableSchedules()
+      return schedules
+  }catch (error) {
+    
   throw error;
   }
 }

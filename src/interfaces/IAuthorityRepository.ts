@@ -13,4 +13,5 @@ export interface IAuthorityRepository {
   getAirports():any
   addSchedule(values:Schedule):Promise<ISchedule | null>;
   getSchedules(from:string,to:string):Promise<ISchedule[] |ISchedule | null>;
+  getAvailableSchedules():Promise<ISchedule[] |ISchedule | null>;
 }

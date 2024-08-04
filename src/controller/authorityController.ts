@@ -80,4 +80,13 @@ getSchedules = async(data:{from:string,to:string})=>{
     console.error(e)
   }
 }
+getAvailableSchedules = async()=>{
+  try{
+      const response = await this.service.getAvailableSchedules()
+      return response
+  }catch(e:any){
+    console.error(e)
+  }
+}
+
 }

@@ -1,11 +1,10 @@
-import mongoose, { Document, Model, Schema } from "mongoose";
-
+import mongoose, { Document, Model, Schema } from 'mongoose';
 
 export interface IAirport extends Document {
   airport_name: string;
-  airport_code:string;
-  city:string;
-  country:string;
+  airport_code: string;
+  city: string;
+  country: string;
 }
 
 const airportSchema: Schema<IAirport> = new mongoose.Schema(
@@ -17,7 +16,7 @@ const airportSchema: Schema<IAirport> = new mongoose.Schema(
     airport_code: {
       type: String,
       required: true,
-      unique:true
+      unique: true,
     },
     city: {
       type: String,
@@ -31,9 +30,7 @@ const airportSchema: Schema<IAirport> = new mongoose.Schema(
   {
     timestamps: true,
   }
-
 );
 
-
-const AirportModel: Model<IAirport> = mongoose.model("Airports", airportSchema);
+const AirportModel: Model<IAirport> = mongoose.model('Airports', airportSchema);
 export default AirportModel;

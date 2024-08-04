@@ -73,5 +73,16 @@ export class AuthorityRepository implements IAuthorityRepository {
     }
   }
 
+  async getAvailableSchedules():Promise<ISchedule[]|ISchedule | null>{
+    try {
+      const schedules = await ScheduleModel.find({
+        available:true
+      });
+      return schedules;
+    } catch (e: any) {
+      throw new Error("db error");
+    }
+  }
+
 
 }

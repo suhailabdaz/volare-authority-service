@@ -14,4 +14,5 @@ export interface IAuthorityService {
   getAirports():any
   addSchedule(values:any):any
   getSchedules(data:{from:string,to:string}):any
+  getAvailableSchedules():any
 }

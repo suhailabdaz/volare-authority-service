@@ -27,11 +27,11 @@ export default class MessageHandler {
       case 'save-airport':
         response = await controller.saveAirport.bind(controller)(data);
         break;
-      case 'delete-airport':
+      case 'suspend-airport':
         response = await controller.deleteAirport.bind(controller)(data);
         break;
       case 'get-airports':
-        response = await controller.getAirports.bind(controller)();
+        response = await controller.getAirports.bind(controller)(data);
         break;
       case 'add-schedule':
         response = await controller.addSchedule.bind(controller)(data);
@@ -41,6 +41,21 @@ export default class MessageHandler {
         break;
       case 'get-available':
         response = await controller.getAvailableSchedules.bind(controller)();
+        break;
+      case 'save-schedule':
+        response = await controller.saveSchedule.bind(controller)(data);
+        break;
+      case 'airline-schedules':
+        response = await controller.airlineSchedule.bind(controller)(data);
+        break;
+      case 'search-schedules':
+        response = await controller.searchSchedules.bind(controller)(data);
+        break;
+      case 'suspend-schedule':
+        response = await controller.suspendSchedule.bind(controller)(data);
+        break;
+      case 'schedule-charting':
+        response = await controller.scheduleCharting.bind(controller)(data);
         break;
       default:
         response = 'Request-key notfound';

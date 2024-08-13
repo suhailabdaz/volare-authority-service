@@ -1,6 +1,5 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
 
-// Interface for Schedule
 export interface ISchedule extends Document {
   fromAirport_Id: any;
   toAirport_Id: any;
@@ -15,8 +14,6 @@ export interface ISchedule extends Document {
   economyPrice?:Number;
   bussinessPrice?:Number;
   firstclassPrice?:Number;
-  premiumIncrement?:Number;
-  weekendIncrement?:Number
 }
 
 // Schema for Schedule
@@ -90,14 +87,6 @@ const scheduleSchema: Schema<ISchedule> = new mongoose.Schema(
       type: Number, 
       required: false,
     },
-    premiumIncrement: {
-      type: Number, 
-      required: false,
-    },
-    weekendIncrement: {
-      type: Number, 
-      required: false,
-    },
     daysOfWeek: {
       type: [String],
       required: true,
@@ -124,9 +113,8 @@ const scheduleSchema: Schema<ISchedule> = new mongoose.Schema(
   }
 );
 
-// Model for Schedule
 const ScheduleModel: Model<ISchedule> = mongoose.model(
-  'Schedules',
+  'Schedules', 
   scheduleSchema
 );
 

@@ -1,6 +1,7 @@
 
 export class Schedule {
   constructor(
+    public readonly _id:string,
     public readonly fromAirport_Id: string,
     public readonly toAirport_Id: string,
     public readonly arrivalTime: string,
@@ -16,5 +17,6 @@ export class Schedule {
     public readonly firstclassPrice?: number,
     public readonly premiumIncrement?: number,
     public readonly weekendIncrement?: number,
+    public readonly scheduleStatus?:string,
   ) {}
 }

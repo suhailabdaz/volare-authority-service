@@ -1,4 +1,9 @@
 import { IAuthorityService } from "../interfaces/IAuthorityInterface"
+import { Airport } from "../model/airport.entities";
+import { Flight } from "../model/flight.entities";
+import { Schedule } from "../model/schedule.entity";
+import { ISchedule } from "../model/schemas/schedule.schema";
+import { Search } from "../model/search.entity";
 
 export class AuthorityController {
   private service: IAuthorityService;
@@ -18,12 +23,7 @@ export class AuthorityController {
     }
   };
 
-  addAirport = async(data :{
-    airport_code :string,
-    airport_name :string,
-    city : string,
-    country:string
-  })=>{
+  addAirport = async(data :Airport)=>{
     try{
       const response = await this.service.addAirport(data);
       return response;
@@ -55,9 +55,9 @@ export class AuthorityController {
   
   
 }
-getAirports = async()=>{
+getAirports = async(data:{limit:Number,page:number})=>{
   try{
-      const response = await this.service.getAirports()
+      const response = await this.service.getAirports(data)
       return response
   }catch(e:any){
     console.error(e)
@@ -80,9 +80,53 @@ getSchedules = async(data:{from:string,to:string})=>{
     console.error(e)
   }
 }
+
+searchSchedules = async(data:Search)=>{
+  try{
+      const response = await this.service.searchSchedule(data)
+      return response
+  }catch(e:any){
+    console.error(e)
+  }
+}
+airlineSchedule = async(id:string)=>{
+  try{
+      const response = await this.service.airlineSchedule(id)
+      return response
+  }catch(e:any){
+    console.error(e)
+  }
+}
+
+suspendSchedule = async(id:string)=>{
+  try{
+      const response = await this.service.suspendSchedule(id)
+      return response
+  }catch(e:any){
+    console.error(e)
+  }
+}
+
 getAvailableSchedules = async()=>{
   try{
       const response = await this.service.getAvailableSchedules()
+      return response
+  }catch(e:any){
+    console.error(e)
+  }
+}
+saveSchedule = async(data:Schedule)=>{
+  try{
+      const response = await this.service.saveSchedule(data)
+      return response
+  }catch(e:any){
+    console.error(e)
+  }
+}
+
+scheduleCharting = async(data:{schedule:Schedule,flight:Flight})=>{
+  try{
+      const response = await this.service.scheduleCharting(data)
       return response
   }catch(e:any){
     console.error(e)

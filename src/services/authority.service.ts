@@ -177,7 +177,10 @@ export class AuthorityService implements IAuthorityService {
             flightId: schedule.flightId || '' ,
             status:ScheduleStatus.Scheduled,
             airlineId: schedule.airlineId || '',
+            fromAirport_Id:schedule.fromAirport_Id,
+            toAirport_Id:schedule.toAirport_Id,
             departureDate: departureDateTime,
+            duration:schedule.duration,
             departureTime: schedule.departureTime,
             arrivalDate: arrivalDateTime,
             arrivalTime: arrivalDateTime.toTimeString().slice(0, 5), 
@@ -208,6 +211,15 @@ export class AuthorityService implements IAuthorityService {
     try {
       const schedules = await this.repository.getSearchSchedules(data);
       return schedules;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getFlight(id:string) {
+    try {
+      const schedule = await this.repository.findById(id);
+      return schedule;
     } catch (error) {
       throw error;
     }

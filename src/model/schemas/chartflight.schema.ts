@@ -17,9 +17,12 @@ export interface IFlightChart extends Document {
   flightId: string;
   airlineId: string;
   departureDate: Date;
+  fromAirport_Id:string;
+  toAirport_Id:string;
   arrivalDate:Date;
   arrivalTime: string;
   departureTime: string;
+  duration:string;
   status: 'scheduled' | 'boarding' | 'departed' | 'arrived' | 'cancelled';
   availableSeats: {
     economy: number;
@@ -69,6 +72,18 @@ const flightChartSchema: Schema<IFlightChart> = new mongoose.Schema(
       required: true,
     },
     airlineId: {
+      type: String,
+      required: true,
+    },
+    duration: {
+      type: String,
+      required: true,
+    },
+    fromAirport_Id: {
+      type: String,
+      required: true,
+    },
+    toAirport_Id: {
       type: String,
       required: true,
     },

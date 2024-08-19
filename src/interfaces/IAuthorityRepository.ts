@@ -18,8 +18,9 @@ export interface IAuthorityRepository {
   getSchedules(from:string,to:string):Promise<ISchedule[] |ISchedule | null>;
   getAvailableSchedules():Promise<ISchedule[] |ISchedule | null>;
   scheduleFindByIdandUpdate(id:string,data:Schedule):Promise<ISchedule | null>;
-  getSearchSchedules(data:Search):Promise<ISchedule[] |ISchedule | null>;
+  getSearchSchedules(data:Search):Promise<IFlightChart[] |IFlightChart | null>;
   scheduleByAirlineId(id:string):Promise<ISchedule[] |ISchedule | null>;
   suspendSchedule(field:string,id:string):any
   createFlightChart(flightChartData:FlightInstance):Promise<IFlightChart | null>;
+  findById(id:string):Promise<IFlightChart | null>
 }

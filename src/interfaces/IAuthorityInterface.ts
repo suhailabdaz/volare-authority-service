@@ -19,5 +19,6 @@ export interface IAuthorityService {
   searchSchedule(data:Search):any
   airlineSchedule(id:string):any
   suspendSchedule(id:string):any
+  getFlight(id:string):any
   scheduleCharting(data:{schedule:Schedule,flight:Flight}):any
 }

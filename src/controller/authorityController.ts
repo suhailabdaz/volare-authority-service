@@ -89,6 +89,15 @@ searchSchedules = async(data:Search)=>{
     console.error(e)
   }
 }
+
+getFlight = async(id:string)=>{
+  try{
+      const response = await this.service.getFlight(id)
+      return response
+  }catch(e:any){
+    console.error(e)
+  }
+}
 airlineSchedule = async(id:string)=>{
   try{
       const response = await this.service.airlineSchedule(id)

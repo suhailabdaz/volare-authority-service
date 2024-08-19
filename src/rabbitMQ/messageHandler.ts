@@ -57,6 +57,9 @@ export default class MessageHandler {
       case 'schedule-charting':
         response = await controller.scheduleCharting.bind(controller)(data);
         break;
+        case 'get-chartedFlight':
+        response = await controller.getFlight.bind(controller)(data);
+        break;
       default:
         response = 'Request-key notfound';
         break;

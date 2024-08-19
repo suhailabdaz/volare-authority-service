@@ -5,8 +5,11 @@ export interface FlightInstance {
   airlineId: string;
   departureDate: Date;
   arrivalDate: Date;
+  fromAirport_Id:string;
+  toAirport_Id:string;
   departureTime: string;
   arrivalTime: string;
+  duration:String;
   status: 'scheduled' | 'boarding' | 'departed' | 'arrived' | 'cancelled';
   availableSeats: {
     economy: number;

@@ -20,6 +20,7 @@ interface Seat {
   number: string;
   position: 'window' | 'middle' | 'aisle';
   isAvailable: boolean;
+  userId?:string;
 }
 
 interface Row {

@@ -19,6 +19,15 @@ export class AuthorityRepository implements IAuthorityRepository {
     }
   }
 
+  async findById(id:string): Promise<IFlightChart | null> {
+    try {
+      const user = await FlightChartModel.findById(id);
+      return user;
+    } catch (e: any) {
+      throw new Error("db error");
+    }
+  }
+
   async addAirport(data:Airport): Promise<IAirport | null> {
     try {
       return AirportModel.create(data)
@@ -66,7 +75,6 @@ export class AuthorityRepository implements IAuthorityRepository {
   async  getAirports(limit:number,page:number){
     try {
       const Airports = await AirportModel.find()
-      
       const skip = (page - 1) * limit;
       const pageAirports = await AirportModel.find()
       .skip(skip)
@@ -130,17 +138,20 @@ export class AuthorityRepository implements IAuthorityRepository {
       throw new Error("db error");
     }
   }
-  async getSearchSchedules(data:Search):Promise<ISchedule[]|ISchedule | null>{
+  async getSearchSchedules(data:Search):Promise<IFlightChart[]|IFlightChart | null>{
     try {
-    
-      const schedules = await ScheduleModel.find({
-        $and: [
-          { fromAirport_Id: data.from },
-          { toAirport_Id: data.to },
-          { daysOfWeek: { $in: [data.weekday] } },
-          { available: false }
-        ]
-      });
+      const searchDate = new Date(data.date);
+const startOfDay = new Date(searchDate.setHours(0, 0, 0, 0));
+const endOfDay = new Date(searchDate.setHours(23, 59, 59, 999));
+
+const schedules = await FlightChartModel.find({
+  fromAirport_Id: data.from,
+  toAirport_Id: data.to,
+  departureDate: {
+    $gte: startOfDay,
+    $lte: endOfDay
+  }
+});
       return schedules;
     } catch (e: any) {
       throw new Error("db error");

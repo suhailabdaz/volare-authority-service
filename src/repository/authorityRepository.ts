@@ -8,6 +8,13 @@ import { Schedule } from "../model/schedule.entity";
 import { Search } from "../model/search.entity";
 import FlightChartModel, { IFlightChart } from "../model/schemas/chartflight.schema";
 import { FlightInstance } from "../model/FlightInstance.entities";
+import { ScheduleStatus } from "../interfaces/enum.status";
+
+interface DecodedSeat {
+  seatNumber: string;
+  travellerId: string;
+  class: 'economyClass' | 'businessClass' | 'firstClass';
+}
 
 export class AuthorityRepository implements IAuthorityRepository {
   async findOne(name: string): Promise<IAuthority | null> {
@@ -150,7 +157,9 @@ const schedules = await FlightChartModel.find({
   departureDate: {
     $gte: startOfDay,
     $lte: endOfDay
-  }
+  },
+  status:ScheduleStatus.Scheduled,
+  
 });
       return schedules;
     } catch (e: any) {
@@ -184,6 +193,46 @@ const schedules = await FlightChartModel.find({
     await flightChart.save();
     return flightChart;
   }
+
+  
+
+  async updateSeatConfirmation(data: { flightChartId: string; seats: DecodedSeat[] }): Promise<IFlightChart | null> {
+    
+
+    const flightChart = await FlightChartModel.findById(data.flightChartId);
+
+    if (!flightChart) {
+      throw new Error('Flight chart not found');
+    }
+
+    for (const decodedSeat of data.seats) {
+      const { seatNumber, travellerId, class: seatClass } = decodedSeat;
+
+      // Find the correct row and seat
+      const classLayout = flightChart.seatLayout[seatClass];
+      for (const row of classLayout) {
+        const seat = row.seats.find(s => s.number === seatNumber);
+        if (seat) {
+          seat.isAvailable = false;
+          seat.userId = travellerId;
+          break;
+        }
+      }
+
+      const seatClassMap: { [key in 'economyClass' | 'businessClass' | 'firstClass']: keyof typeof flightChart.availableSeats } = {
+        economyClass: 'economy',
+        businessClass: 'business',
+        firstClass: 'firstClass',
+      };
+      
+      flightChart.availableSeats[seatClassMap[seatClass]] -= 1;
+          }
+
+    // Save the updated flight chart
+    await flightChart.save();
+
+    return flightChart;
+      }
 
 
 }

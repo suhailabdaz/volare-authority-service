@@ -11,6 +11,7 @@ import calculateDynamicPrice from '../utils/calculatePrice';
 import parseDuration from '../utils/parseDuration';
 import { ScheduleStatus } from '../interfaces/enum.status';
 import { FlightInstance } from '../model/FlightInstance.entities';
+import { log } from 'console';
 
 export class AuthorityService implements IAuthorityService {
   private repository: IAuthorityRepository;
@@ -238,6 +239,40 @@ export class AuthorityService implements IAuthorityService {
     try {
       const schedules = await this.repository.suspendSchedule('_id',id)
       return {success:true,schedule:schedules};
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateBookingSeatConfirmation(data:{flightChartId:string,seats:any}) {
+    interface DecodedSeat {
+      seatNumber: string;
+      travellerId: string;
+      class: 'economyClass' | 'businessClass' | 'firstClass';
+    }
+    try {
+
+      const decodeSeatInfo = (encodedSeats: string): DecodedSeat[] => {
+        const decodedSeats = decodeURIComponent(encodedSeats);
+        return decodedSeats.split(';').map(seat => {
+          const [seatNumber, travellerId, seatClass] = seat.split(',');
+          return { seatNumber, travellerId, class: seatClass as DecodedSeat['class'] };
+        });
+      };
+      
+      const seats = data.seats ? decodeSeatInfo(data.seats) : [];
+      
+      const updatedFlightChart = await this.repository.updateSeatConfirmation({
+        flightChartId: data.flightChartId,
+        seats: seats
+      });
+
+      if (!updatedFlightChart) {
+        throw new Error('Failed to update seat confirmation');
+      }
+
+      return { success: true, flightChart: updatedFlightChart };
+
     } catch (error) {
       throw error;
     }

@@ -1,6 +1,7 @@
 import { Airport } from "../model/airport.entities";
 import { Authority } from "../model/authority.entities";
 import { Flight } from "../model/flight.entities";
+import { FlightInstance } from "../model/FlightInstance.entities";
 import { Schedule } from "../model/schedule.entity";
 import { ISchedule } from "../model/schemas/schedule.schema";
 import { Search } from "../model/search.entity";
@@ -21,4 +22,5 @@ export interface IAuthorityService {
   suspendSchedule(id:string):any
   getFlight(id:string):any
   scheduleCharting(data:{schedule:Schedule,flight:Flight}):any
+  updateBookingSeatConfirmation(data:{flightChartId:string,seats:any}):any
 }

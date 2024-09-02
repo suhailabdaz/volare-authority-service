@@ -90,6 +90,15 @@ searchSchedules = async(data:Search)=>{
   }
 }
 
+updateBookingSeatConfirmation = async(data:{flightChartId:string,seats:any})=>{
+  try{
+      const response = await this.service.updateBookingSeatConfirmation(data)
+      return response
+  }catch(e:any){
+    console.error(e)
+  }
+}
+
 getFlight = async(id:string)=>{
   try{
       const response = await this.service.getFlight(id)

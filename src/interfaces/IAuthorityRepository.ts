@@ -23,4 +23,5 @@ export interface IAuthorityRepository {
   suspendSchedule(field:string,id:string):any
   createFlightChart(flightChartData:FlightInstance):Promise<IFlightChart | null>;
   findById(id:string):Promise<IFlightChart | null>
+  updateSeatConfirmation(data:{flightChartId:string,seats:any}):Promise<IFlightChart | null>
 }

@@ -271,6 +271,8 @@ export class AuthorityService implements IAuthorityService {
         throw new Error('Failed to update seat confirmation');
       }
 
+      console.log('confirmed seats',updatedFlightChart);
+      
       return { success: true, flightChart: updatedFlightChart };
 
     } catch (error) {

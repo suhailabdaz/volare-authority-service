@@ -11,6 +11,8 @@ export class Schedule {
     public readonly status: boolean = true,
     public readonly available: boolean = true,
     public readonly flightId?: string,
+    public readonly baggagePolicyId?: string,
+    public readonly refundPolicyId?: string,
     public readonly airlineId?: string,
     public readonly economyPrice?: number,
     public readonly bussinessPrice?: number,

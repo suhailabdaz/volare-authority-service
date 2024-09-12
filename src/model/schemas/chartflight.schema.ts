@@ -15,6 +15,8 @@ interface Row {
 export interface IFlightChart extends Document {
   scheduleId: mongoose.Schema.Types.ObjectId;
   flightId: string;
+  refundPolicyId:string;
+  baggagePolicyId:string;
   airlineId: string;
   departureDate: Date;
   fromAirport_Id:string;
@@ -72,6 +74,14 @@ const flightChartSchema: Schema<IFlightChart> = new mongoose.Schema(
       required: true,
     },
     airlineId: {
+      type: String,
+      required: true,
+    },
+    refundPolicyId: {
+      type: String,
+      required: true,
+    },
+    baggagePolicyId: {
       type: String,
       required: true,
     },

@@ -11,6 +11,8 @@ export interface ISchedule extends Document {
   daysOfWeek: string[];
   flightId?: string; 
   airlineId?:string;
+  refundPolicyId?:string;
+  baggagePolicyId?:string;
   economyPrice?:Number;
   bussinessPrice?:Number;
   firstclassPrice?:Number;
@@ -72,6 +74,14 @@ const scheduleSchema: Schema<ISchedule> = new mongoose.Schema(
       required: false,
     },
     airlineId: {
+      type: String, 
+      required: false,
+    },
+    refundPolicyId: {
+      type: String, 
+      required: false,
+    },
+    baggagePolicyId: {
       type: String, 
       required: false,
     },

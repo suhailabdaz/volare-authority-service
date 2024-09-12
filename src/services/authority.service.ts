@@ -102,7 +102,6 @@ export class AuthorityService implements IAuthorityService {
 
   async addSchedule(values: any) {
     try {
-      console.log(values);
       
       const schedule = await this.repository.addSchedule(values);
       return { success: true, schedule: schedule };
@@ -168,16 +167,18 @@ export class AuthorityService implements IAuthorityService {
           const economyPrice = calculateDynamicPrice(schedule.economyPrice || 0, isHoliday, isWeekend);
           const businessPrice = calculateDynamicPrice(schedule.bussinessPrice || 0, isHoliday, isWeekend);
           const firstClassPrice = calculateDynamicPrice(schedule.firstclassPrice || 0, isHoliday, isWeekend);
-    
+      
           const departureDateTime = new Date(date);
           departureDateTime.setHours(parseInt(schedule.departureTime.split(':')[0]), parseInt(schedule.departureTime.split(':')[1]));
           const arrivalDateTime = new Date(departureDateTime.getTime() + parseDuration(schedule.duration));
-    
+      
           const flightChartData:FlightInstance = {
             scheduleId: schedule._id,
             flightId: schedule.flightId || '' ,
             status:ScheduleStatus.Scheduled,
             airlineId: schedule.airlineId || '',
+            baggagePolicyId:schedule.baggagePolicyId || '',
+            refundPolicyId:schedule.refundPolicyId || '',
             fromAirport_Id:schedule.fromAirport_Id,
             toAirport_Id:schedule.toAirport_Id,
             departureDate: departureDateTime,

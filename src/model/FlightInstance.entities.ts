@@ -2,6 +2,8 @@ export interface FlightInstance {
   _id?: string;
   scheduleId: string;
   flightId: string;
+  baggagePolicyId:string;
+  refundPolicyId:string;
   airlineId: string;
   departureDate: Date;
   arrivalDate: Date;

@@ -2,10 +2,9 @@ import 'dotenv/config'
 
 export default {
     rabbitMQ: {
-      url: String(process.env.RabbitMQ_Link),
+      url: String(process.env.RABBITMQ_LINK),
       queues: {
         authorityQueue: "authority_queue",
-        
       },
     },
   };

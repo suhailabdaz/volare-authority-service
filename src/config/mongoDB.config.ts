@@ -4,9 +4,9 @@ import "dotenv/config";
 
 const connectDB = async () => {
     try {
-      const mongoURI = `${process.env.MONGO_URI}${process.env.MONGODB_NAME}`;
+      const mongoURI = `${process.env.AUTHORITY_MONGO_URI}${process.env.AUTHORITY_MONGODB_NAME}`;
       const conn = await mongoose.connect(
-        `${process.env.MONGO_URI}${process.env.MONGODB_NAME}`
+        `${process.env.AUTHORITY_MONGO_URI}${process.env.AUTHORITY_MONGODB_NAME}`
       );    
       console.log(`AuthorityDB-connected: ${conn.connection.host}`);
     } catch (error: any) {
